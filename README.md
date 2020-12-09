@@ -1,7 +1,7 @@
 Instructions:
 
     $ git clone https://github.com/marlon2794/roomvr--aframe-wbrtc.git
-    $ cd roomvr--aframe-webrtc
+    $ cd roomvr--aframe-wbrtc
     $ nmp install
 
 Run server:
