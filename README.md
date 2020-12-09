@@ -3,8 +3,11 @@ Instructions:
     $ cd roomvr--aframe-webrtc
     $ nmp install
 
-#Run server:
+Run server:
+    
     $ npm run DevStart
-#Run peer js with ssl certificate
+
+
+Run peer js with ssl certificate
     
     $ peerjs --port 3001 --sslkey key.pem --sslcert certificate.pem
