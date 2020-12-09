@@ -6,7 +6,7 @@ Instructions:
 
 Run server:
     
-    $ npm run DevStart
+    $ npm run devStart
 
 
 Run peer js with ssl certificate
