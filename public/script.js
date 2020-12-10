@@ -28,6 +28,9 @@ joinBtn.addEventListener('click', joinRoom)
 const getMediaBtn = document.getElementById('getMediaBtn')
 getMediaBtn.addEventListener('click', getUserMedia)
 
+const shareCameraBtn = document.getElementById('shareCameraBtn')
+shareCameraBtn.addEventListener('click', shareCamera)
+
 
 //console.log('Sharing screen...')
 
@@ -76,10 +79,91 @@ socket.on('user-connected', userId => {
     //connectToNewUser(hostId, localStream)
 })
 
+window.buttonShareScreen = function() {
+    console.log("Play video share-screen");
+    navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: true
+    }).then(stream => {
+        console.log('Gaining access to multimedia devices....')
+        console.log('Local stream: ', stream)
+        localVideo.srcObject = stream
+        localStream = stream
+
+        //localVideo.srcObject = localStream
+        //        connectToNewUser(hostId, localStream)
+        localVideo.srcObject = localStream
+
+        console.log('Compartiendo video....')
+
+        connectToNewUser(hostId, localStream)
+
+    })
+}
+
+window.buttonShareCamera = function() {
+    navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    }).then(stream => {
+        console.log('Gaining access to multimedia devices....')
+        console.log('Local stream: ', stream)
+        localVideo.srcObject = stream
+        localStream = stream
+
+        localVideo.srcObject = localStream
+        console.log('Compartiendo video....')
+        connectToNewUser(hostId, localStream)
+    })
+}
+
+
+window.buttonChangeRoom = function() {
+    //window.location.reload();
+    window.location = "./"
+}
+
 function shareScreen() {
-    localVideo.srcObject = localStream
-    console.log('Compartiendo video....')
-    connectToNewUser(hostId, localStream)
+    //    navigator.mediaDevices.getDisplayMedia({
+
+    navigator.mediaDevices.getDisplayMedia({
+        video: true,
+        audio: true
+    }).then(stream => {
+        console.log('Gaining access to multimedia devices....')
+        console.log('Local stream: ', stream)
+        localVideo.srcObject = stream
+        localStream = stream
+
+        //localVideo.srcObject = localStream
+        //        connectToNewUser(hostId, localStream)
+        localVideo.srcObject = localStream
+
+        console.log('Compartiendo video....')
+
+        connectToNewUser(hostId, localStream)
+
+    })
+
+
+
+}
+
+
+function shareCamera() {
+    navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true
+    }).then(stream => {
+        console.log('Gaining access to multimedia devices....')
+        console.log('Local stream: ', stream)
+        localVideo.srcObject = stream
+        localStream = stream
+
+        localVideo.srcObject = localStream
+        console.log('Compartiendo video....')
+        connectToNewUser(hostId, localStream)
+    })
 
 }
 

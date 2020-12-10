@@ -50,7 +50,12 @@ room.addEventListener('avataradded', function onAdded(evt) {
 
     var radToDeg = THREE.Math.radToDeg;
     var rotation = avatar.object3D.rotation;
-    rotation.y += Math.PI;
+    console.log('/*********/')
+    console.log(-Math.PI / 4)
+        //console.log('/*********/')
+
+
+    //rotation.y = -Math.PI / 6;
     avatar.setAttribute('rotation', {
         x: radToDeg(rotation.x),
         y: radToDeg(rotation.y),
@@ -121,6 +126,8 @@ function connect() {
         var currentMessage = text.getAttribute('text').value;
         return currentMessage;
     }
+
+
 
 
     window.enter = function() {

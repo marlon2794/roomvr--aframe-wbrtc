@@ -10,14 +10,14 @@ html {
 }
 
 .hide {
-    color: black;
+    color: white;
     margin: 0;
     padding: 1rem;
     float: right;
     text-align: right;
     position: relative;
     z-index: 110;
-    background-color: white;
+    background-color: darkcyan;
     font-size: 1rem;
 }
 
@@ -58,12 +58,17 @@ a-scene {
     border-radius: 5px;
     border: 2px dashed grey;
     padding: 0.4rem;
-    margin-top: 1rem;
+    margin-top: 0rem;
 }
 
 .move {
     background-color: #61B8EC;
     border: 2px solid #61B8EC;
+    /*  height: 16px;
+    width: 224px;*/
+    visibility: hidden;
+    width: 0;
+    height: 0;
 }
 
 a.move {
