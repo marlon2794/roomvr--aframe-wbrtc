@@ -14,55 +14,11 @@ var countParticipants = 0
 
 var localStream = null
 var hostId = null
+var userID = null
+var participantsId = []
+var sharevideo = document.querySelector('a-video');
 
 
-const beginCallBtn = document.getElementById('beginCallBtn')
-beginCallBtn.addEventListener('click', beginCall)
-
-const shareScreenBtn = document.getElementById('shareScreenBtn')
-shareScreenBtn.addEventListener('click', shareScreen)
-
-const joinBtn = document.getElementById('joinBtn')
-joinBtn.addEventListener('click', joinRoom)
-
-const getMediaBtn = document.getElementById('getMediaBtn')
-getMediaBtn.addEventListener('click', getUserMedia)
-
-const shareCameraBtn = document.getElementById('shareCameraBtn')
-shareCameraBtn.addEventListener('click', shareCamera)
-
-
-//console.log('Sharing screen...')
-
-
-/* navigator.mediaDevices.getDisplayMedia({
-    video: true,
-    audio: true
-}).then(stream => {
-    console.log('Gaining access to multimedia devices....')
-        //  Parte donde se agrega el video local al grid
-        //  addVideoStream(myVideo, stream)
-    console.log('Local stream: ', stream)
-    localVideo.srcObject = stream
-    localStream = stream
-    myPeer.on('call', call => {
-        console.log('Respondiendo llamada')
-        console.log('Sharing stream...')
-        console.log('Answer stream: ', stream)
-        call.answer(stream)
-        const video = document.createElement('video')
-        video.style.borderColor = "blue"
-        call.on('stream', userVideoStream => {
-            //console.log('Host stream ', userVideoStream)
-
-            if (countParticipants === 0) {
-                console.log('Host stream ', userVideoStream)
-                addVideoStream(video, userVideoStream)
-                countParticipants++;
-            }
-        })
-    })
-}) */
 
 myPeer.on('error', function(err) {
     console.log('Error: ', err);
@@ -95,8 +51,11 @@ window.buttonShareScreen = function() {
         localVideo.srcObject = localStream
 
         console.log('Compartiendo video....')
+        participantsId.forEach(element => {
+            console.log(element)
+            connectToNewUser(element, localStream)
+        });
 
-        connectToNewUser(hostId, localStream)
 
     })
 }
@@ -113,165 +72,75 @@ window.buttonShareCamera = function() {
 
         localVideo.srcObject = localStream
         console.log('Compartiendo video....')
-        connectToNewUser(hostId, localStream)
+        participantsId.forEach(element => {
+            console.log(element)
+            connectToNewUser(element, localStream)
+        });
+
+        //        connectToNewUser(hostId, localStream)
     })
 }
 
+window.buttonStopSharing = function() {
+    console.log('Stop sharing...')
+        //localStream.getTracks()[0].stop()
+    localStream.getTracks().forEach((track) => {
+        track.stop();
+    });
+    localStream = null
+
+    participantsId.forEach(element => {
+        console.log(element)
+        peers[element].close()
+    });
+
+    participantsId.forEach(element => {
+        connectToUserAgain(element, localStream)
+    });
+    //var call = myPeer.call(userID, localStream)
+    //const video = document.getElementById('remoteVideo')
+
+    //video.srcObject = localStream
+    //video.remove()
+    //console.log('Host stream ', userVideoStream)
+    //connectToUserAgain(userID, localStream)
+}
 
 window.buttonChangeRoom = function() {
     //window.location.reload();
     window.location = "./"
 }
 
-function shareScreen() {
-    //    navigator.mediaDevices.getDisplayMedia({
 
-    navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: true
-    }).then(stream => {
-        console.log('Gaining access to multimedia devices....')
-        console.log('Local stream: ', stream)
-        localVideo.srcObject = stream
-        localStream = stream
-
-        //localVideo.srcObject = localStream
-        //        connectToNewUser(hostId, localStream)
-        localVideo.srcObject = localStream
-
-        console.log('Compartiendo video....')
-
-        connectToNewUser(hostId, localStream)
-
-    })
-
-
-
-}
-
-
-function shareCamera() {
-    navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: true
-    }).then(stream => {
-        console.log('Gaining access to multimedia devices....')
-        console.log('Local stream: ', stream)
-        localVideo.srcObject = stream
-        localStream = stream
-
-        localVideo.srcObject = localStream
-        console.log('Compartiendo video....')
-        connectToNewUser(hostId, localStream)
-    })
-
-}
-
-
-
-function joinRoom() {
-    console.log('Joining room....')
-        //  Parte donde se agrega el video local al grid
-        //  addVideoStream(myVideo, stream)
-        //  console.log('Local stream: ', stream)
-        //  localVideo.srcObject = stream
-        //  localStream = stream
-    myPeer.on('call', call => {
-        console.log('Respondiendo llamada')
-        console.log('Sharing stream...')
-            //  console.log('Answer stream: ', stream)
-        call.answer(localStream)
-        const video = document.createElement('video')
-        video.style.borderColor = "blue"
-        call.on('stream', userVideoStream => {
-            //console.log('Host stream ', userVideoStream)
-
-            if (countParticipants === 0) {
-                console.log('Host stream ', userVideoStream)
-                addVideoStream(video, userVideoStream)
-                countParticipants++;
-            }
-        })
-    })
-}
-
-
-//ya no es necesario
-function beginCall() {
-    // navigator.mediaDevices.getDisplayMedia({
-    //    video: true,
-    //    audio: true
-    //}).then(stream => {
-    console.log('Starting call....')
-        //  Parte donde se agrega el video local al grid
-        //  addVideoStream(myVideo, stream)
-        //console.log('Local stream: ', stream)
-    localVideo.srcObject = localStream
-        // localStream = stream
-    myPeer.on('call', call => {
-            console.log('Respondiendo llamada')
-            console.log('Sharing stream...')
-            console.log('Answer stream: ', stream)
-            call.answer(stream)
-            const video = document.createElement('video')
-            video.style.borderColor = "blue"
-            call.on('stream', userVideoStream => {
-                //console.log('Host stream ', userVideoStream)
-
-                if (countParticipants === 0) {
-                    console.log('Host stream ', userVideoStream)
-                    addVideoStream(video, userVideoStream)
-                    countParticipants++;
-                }
-            })
-        })
-        //})
-}
 
 myPeer.on('call', call => {
-    //console.log('Respondiendo llamada')
-    //console.log('Sharing stream...')
-    //console.log('Answer stream: ', stream)
-    call.answer()
     const video = document.getElementById('remoteVideo')
+    video.remove()
+    console.log('Contestando llamada...')
+    console.log('Reciviendo streaming...')
+        //console.log('Sharing stream...')
+        //console.log('Answer stream: ', stream)
+    call.answer()
     video.style.borderColor = "blue"
-    call.on('stream', userVideoStream => {
-        //console.log('Host stream ', userVideoStream)
 
-        if (countParticipants === 0) {
-            console.log('Host stream ', userVideoStream)
-            addVideoStream(video, userVideoStream)
-            countParticipants++;
-        }
+    call.on('stream', userVideoStream => {
+        console.log('Host stream ', userVideoStream)
+
+        console.log(countParticipants)
+            //if (countParticipants === 0) {
+        console.log('Host stream ', userVideoStream)
+        addVideoStream(video, userVideoStream)
+        countParticipants++;
+        //}
     })
 })
-
-function getUserMedia() {
-    navigator.mediaDevices.getDisplayMedia({
-        video: true,
-        audio: true
-    }).then(stream => {
-        console.log('Gaining access to multimedia devices....')
-        console.log('Local stream: ', stream)
-        localVideo.srcObject = stream
-        localStream = stream
-    })
-}
-
-/*     const video = document.getElementById('videon');
-    video.srcObject = stream;
-
-    // demonstrates how to detect that the user has stopped
-    // sharing the screen via the browser UI.
-    stream.getVideoTracks()[0].addEventListener('ended', () => {
-        errorMsg('The user has ended sharing the screen');
-        startButton.disabled = false;
-    }); */
 
 
 
 socket.on('user-disconnected', userId => {
-    if (peers[userId]) peers[userId].close()
+    if (peers[userId]) {
+        peers[userId].close()
+    }
 })
 
 myPeer.on('open', id => {
@@ -285,8 +154,63 @@ myPeer.on('error', function(err) {
 });
 
 
-
 function connectToNewUser(userId, stream) {
+    console.log('Connecting with new user...')
+    console.log('Iniciando llamada...')
+        /*const call = ''
+
+        if (participantsId.length > 1) {
+            const call = myPeer.call(userId, stream)
+            console.log('Call data: ', call)
+            console.log('Connected with: ', userId)
+            const video = document.getElementById('remoteVideo')
+            userID = userId
+
+            participantsId.push(userId)
+            console.log('a-video: ', sharevideo.attributes);
+
+
+            /*call.on('stream', userVideoStream => {
+                console.log('Receiving remote stream: ', userVideoStream)
+                    //addVideoStream(video, userVideoStream)
+            })*/
+
+    /*call.on('close', () => {
+            video.remove()
+        })
+
+        peers[userId] = call
+        console.log(userId)
+        console.log(peers[userId])
+    } else {
+
+    }*/
+    const call = myPeer.call(userId, stream)
+    console.log('Call data: ', call)
+    console.log('Connected with: ', userId)
+    const video = document.getElementById('remoteVideo')
+    userID = userId
+
+    participantsId.push(userId)
+    console.log('a-video: ', sharevideo.attributes);
+
+
+    /*call.on('stream', userVideoStream => {
+        console.log('Receiving remote stream: ', userVideoStream)
+            //addVideoStream(video, userVideoStream)
+    })*/
+
+    call.on('close', () => {
+        video.remove()
+    })
+
+    peers[userId] = call
+        //console.log(userId)
+        //console.log(peers[userId])
+
+}
+
+function connectToUserAgain(userId, stream) {
     console.log('Connecting with new user...')
     console.log('Iniciando llamada...')
     const call = myPeer.call(userId, stream)
@@ -298,22 +222,15 @@ function connectToNewUser(userId, stream) {
     console.log('a-video: ', sharevideo.attributes);
 
 
-
-    call.on('stream', userVideoStream => {
-        console.log('Receiving remote stream: ', userVideoStream)
-            //addVideoStream(video, userVideoStream)
-    })
-
-    call.on('close', () => {
-        video.remove()
-    })
-
     peers[userId] = call
+    console.log(userId)
+    console.log(peers[userId])
 }
+
 
 function addVideoStream(video, stream) {
     video.srcObject = stream
-    console.log('addVideoStream', stream)
+        //console.log('addVideoStream', stream)
     video.addEventListener('loadedmetadata', () => {
         video.play()
     })

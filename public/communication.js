@@ -55,12 +55,12 @@ room.addEventListener('avataradded', function onAdded(evt) {
         //console.log('/*********/')
 
 
-    //rotation.y = -Math.PI / 6;
+    /*rotation.y = -Math.PI / 6;
     avatar.setAttribute('rotation', {
         x: radToDeg(rotation.x),
         y: radToDeg(rotation.y),
         z: radToDeg(rotation.z)
-    });
+    });*/
     console.log('Avatar new position: ' +
         avatar.getAttribute('position').x + ' ' +
         avatar.getAttribute('position').y + ' ' +
