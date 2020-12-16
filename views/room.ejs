@@ -117,8 +117,11 @@
                 position: {
                     default: 1
                 },
-                separation: {
-                    default: 2
+                separationx: {
+                    default: 3
+                },
+                separationz: {
+                    default: 4
                 }
             },
 
@@ -126,9 +129,30 @@
             update() {
                 var position = this.el.getAttribute('position');
                 console.log('|------------|-----------------|----------------|')
-                console.log(position)
-                console.log('**Update position**');
-                position.x = (this.data.position - 1) * this.data.separation;
+                console.log('Current position: ', position)
+                console.log('this.data.position ', this.data.position)
+                console.log('**Update position**')
+                if (this.data.position >= 6 && this.data.position <= 10) {
+                    // fila 2
+                    position.x = (this.data.position - 12) * this.data.separationx;
+                    position.z = position.z + this.data.separationz
+                } else {
+                    // fila 1
+                    position.x = (this.data.position - 3) * this.data.separationx;
+                }
+
+                if (this.data.position >= 11 && this.data.position <= 15) {
+                    // fila 3
+                    position.x = (this.data.position - 22) * this.data.separationx;
+                    position.z = position.z + this.data.separationz
+                }
+
+                if (this.data.position >= 16 && this.data.position <= 20) {
+                    // fila 4
+                    position.x = (this.data.position - 32) * this.data.separationx;
+                    position.z = position.z + this.data.separationz
+                }
+
                 console.log('Position ');
                 console.log(position);
                 console.log('|------------|-----------------|----------------|')
@@ -268,13 +292,43 @@
 
                 Walls-->
 
-            <a-entity rotation="0 180 0" position="0 0 -2">
+            <a-entity class="row1" rotation="0 180 0" position="0 0 -1.8">
 
-                <a-gltf-model class="table2" src="#table2" position="0 0 0" scale="0.02 0.02 0.025"></a-gltf-model>
-                <a-gltf-model class="table2" src="#table2" position="-3 0 0" scale="0.02 0.02 0.025"></a-gltf-model>
-                <a-gltf-model class="table2" src="#table2" position="3 0 0" scale="0.02 0.02 0.025"></a-gltf-model>
-                <a-gltf-model class="table2" src="#table2" position="-6 0 0" scale="0.02 0.02 0.025"></a-gltf-model>
-                <a-gltf-model class="table2" src="#table2" position="6 0 0" scale="0.02 0.02 0.025"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="0 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+
+            </a-entity>
+
+
+            <a-entity class="row2" rotation="0 180 0" position="0 0 2.2">
+                <a-gltf-model class="table2" src="#table2" position="0 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+
+            </a-entity>
+
+            <a-entity class="row3" rotation="0 180 0" position="0 0 6.2">
+
+                <a-gltf-model class="table2" src="#table2" position="0 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+
+            </a-entity>
+
+            <a-entity class="row3" rotation="0 180 0" position="0 0 10.2">
+
+                <a-gltf-model class="table2" src="#table2" position="0 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="3 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="-6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
+                <a-gltf-model class="table2" src="#table2" position="6 0 0" scale="0.02 0.02 0.01"></a-gltf-model>
 
             </a-entity>
 
@@ -307,7 +361,7 @@
 
 
 
-        <a-entity id="cameraRig" position="6 1.6 0">
+        <a-entity id="cameraRig" position="0 1.6 2">
 
             <!--        <a-camera look-controls wasd-controls="acceleration: 200" position="0 0.5 0">&lt;!&ndash;CELULAR&ndash;&gt;-->
             <!-- <a-camera look-controls wasd-controls="acceleration: 200" position="0 1.6 0"> -->
@@ -343,16 +397,20 @@
     <template>
     
         <!--<a-entity theme position-around>-->
-        <a-entity theme position="-9 1.6 0">
-
-
+        <a-entity theme position="-12 -0.1 -1.8">
+            
+            <a-gltf-model class="woman" src="#woman" scale="0.03 0.05 0.02" rotation="0 180 0"></a-gltf-model>
+            <!--
                 <a-sphere radius="0.1" color="#ffffff"></a-sphere>
                 <a-sphere position="0.05 0.03 -0.08" radius="0.02" segments-width="8" segments-height="8" color="#000000"></a-sphere>
                 <a-sphere position="-0.05 0.03 -0.08" radius="0.02" segments-width="8" segments-height="8" color="#000000"></a-sphere>
                 <a-sphere class="themable" position="0 -0.07 -0.1" scale="1 1 0.5" segments-width="4" segments-height="4" radius="0.02" color="#11fd3e"></a-sphere>
                 <a-cone class="themable" position="0.03 -0.07 -0.1" rotation="0 0 90" scale="1 1 0.5" segments-radial="8" segments-height="1" height="0.03" radius-bottom="0.03"  color="#1cff3c"></a-cone>
                 <a-cone class="themable" position="-0.03 -0.07 -0.1" rotation="0 0 -90" scale="1 1 0.5" segments-radial="8" segments-height="1" height="0.03" radius-bottom="0.03"  color="#1cff3c"></a-cone>
-            <!--
+            
+            
+
+
             <a-gltf-model class="woman" src="#woman" position="-4 -1.6 12" scale="0.03 0.05 0.02" rotation="0 180 0"></a-gltf-model>
             <a-gltf-model class="woman" src="#woman" position="0 -1.6 0" scale="0.03 0.05 0.02" rotation="0 180 0"></a-gltf-model>
 

@@ -38,21 +38,23 @@ room.addEventListener('avataradded', function onAdded(evt) {
         return;
     }
 
-    var center = { x: 0, z: 0 };
+    var avatarX = avatar.getAttribute('position').x;
     var avatarY = avatar.getAttribute('position').y;
+    var avatarZ = avatar.getAttribute('position').z;
+
     console.log('Avatar current position: ' +
-        center.x + ', ' +
+        avatarX + ', ' +
         avatarY + ', ' +
-        center.z);
+        avatarZ);
     avatar.object3D.lookAt(new THREE.Vector3(
-        center.x, avatarY, center.z
+        avatarX, avatarY, avatarZ
     ));
 
-    var radToDeg = THREE.Math.radToDeg;
-    var rotation = avatar.object3D.rotation;
-    console.log('/*********/')
-    console.log(-Math.PI / 4)
-        //console.log('/*********/')
+    /*var radToDeg = THREE.Math.radToDeg;
+    var rotation = avatar.object3D.rotation;*/
+    //console.log('/*********/')
+    //console.log(-Math.PI / 4)
+    //console.log('/*********/')
 
 
     /*rotation.y = -Math.PI / 6;
