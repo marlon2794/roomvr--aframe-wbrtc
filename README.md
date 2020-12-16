@@ -1,5 +1,7 @@
 Utilizar:
+    
     nodejs -> versión: v14.15.1
+    
     npm -> versión: 6.14.8
 
 Instructions:
