@@ -1,3 +1,7 @@
+Utilizar:
+    nodejs -> versión: v14.15.1
+    npm -> versión: 6.14.8
+
 Instructions:
 
     $ git clone https://github.com/marlon2794/roomvr--aframe-wbrtc.git
